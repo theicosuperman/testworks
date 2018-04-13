@@ -1,4 +1,5 @@
 #!/bin/sh
+
 sudo apt-get install git screen tmux locate zsh -y
 cd /root
 
@@ -17,9 +18,11 @@ then
 	make install
 else
 	echo "Error make test REDIS\n"
-
+	read -p "Continue?" yn
+	case $yn in
+	[Nn]* ) exit;;
+	esac
 fi
-
 echo "Redis installed...\n"
 
 echo 'vm.overcommit_memory=1' » /etc/sysctl.conf
@@ -40,6 +43,11 @@ then
 	echo "Node succefully installed"
 else
 	echo "Error installing NODEJS\n"
+	read -p "Continue?" yn
+	case $yn in
+
+	[Nn]* ) exit;;
+	esac
 	
 fi
 sudo apt-get install build-essential libsodium-dev -y
@@ -58,7 +66,11 @@ then
 	echo "Z-NOMP is installed\n"
 else
 	echo "Error installing Z-NOMP\n"
-	
+	read -p "Continue?" yn
+	case $yn in
+
+	[Nn]* ) exit;;
+	esac
 fi
 echo "Installing FOREVER\n"
 npm i forever -g
@@ -71,7 +83,10 @@ then
 	echo "NETDATA dependencies are installed\n"
 else
 	echo "Error installing NETDATA deps\n"
-
+	read -p "Continue?" yn
+	case $yn in
+	[Nn]* ) exit;;
+	esac
 fi
 echo "Cloning NETDATA\n"
 git clone https://github.com/firehol/netdata.git --depth=1 ~/netdata
@@ -79,7 +94,9 @@ cd ~/netdata
 sudo ./netdata-installer.sh
 pid=`ps auxw | grep netdata | head -n1 | awk '{print $2}'`
 kill $pid
-#sed -e 's/#\s*history.*/history=86400/' /etc/netdata/netdata.conf
+
+sed -e 's/#\s*history.*/history=86400/' /etc/netdata/netdata.conf > /tmp/netdata.conf
+\cp -r /tmp/netdata.conf /etc/netdata.conf
 netdata
 ##END
 updatedb
