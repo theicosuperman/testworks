@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo apt-get install git screen tmux locate zsh -y
+sudo apt-get install git screen tmux locate zsh libboost-all-dev -y
 cd /root
 
 
