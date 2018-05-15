@@ -1,8 +1,7 @@
 #!/bin/sh
-#this script is not needed at all i do think
+
 sudo apt-get install git screen tmux locate zsh -y
 cd /root
-
 
 
 ##REDIS
@@ -101,4 +100,6 @@ netdata
 ##END
 updatedb
 echo "Finished\n"
+
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+source ~/.zshrc
