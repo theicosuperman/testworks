@@ -1,5 +1,5 @@
 #!/bin/sh
-
+#this script is not needed at all i do think
 sudo apt-get install git screen tmux locate zsh -y
 cd /root
 
